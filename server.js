@@ -3,7 +3,7 @@ var bodyParser = require("body-parser");
 var mongodb = require("mongodb");
 var ObjectID = mongodb.ObjectID;
 
-var CLASS_COLLECTION = "attendance";
+var CLASS_COLLECTION = "herokudemo";
 
 var app = express();
 app.use(bodyParser.json());
@@ -40,7 +40,7 @@ function handleError(res, reason, message, code) {
  *    POST: create a new student
  */
 
-app.get("/api/attendance", function(req, res) {
+app.get("/api/herokudemo", function(req, res) {
   db.collection(CLASS_COLLECTION).find({}).toArray(function(err, docs) {
     if (err) {
       handleError(res, err.message, "Failed to get contacts.");
@@ -50,7 +50,7 @@ app.get("/api/attendance", function(req, res) {
   });
 });
 
-app.post("/api/attendance", function(req, res) {
+app.post("/api/herokudemo", function(req, res) {
   var newStudent = req.body;
   newStudent.createDate = new Date();
 
@@ -73,11 +73,11 @@ app.post("/api/attendance", function(req, res) {
  *    DELETE: deletes student by id
  */
 
-app.get("/api/attendance/:id", function(req, res) {
+app.get("/api/herokudemo/:id", function(req, res) {
 });
 
-app.put("/api/attendance/:id", function(req, res) {
+app.put("/api/herokudemo/:id", function(req, res) {
 });
 
-app.delete("/api/attendance/:id", function(req, res) {
+app.delete("/api/herokudemo/:id", function(req, res) {
 });
