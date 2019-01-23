@@ -3,7 +3,7 @@ var bodyParser = require("body-parser");
 var mongodb = require("mongodb");
 var ObjectID = mongodb.ObjectID;
 
-var CLASS_COLLECTION = "herokudemo";
+var HEROKUS_COLLECTION = "herokudemo";
 
 var app = express();
 app.use(bodyParser.json());
@@ -28,7 +28,7 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI || "mongodb://localhost:2701
   console.log("Database connection ready");
 
   // Initialize the app.
-  var server = app.listen(process.env.PORT || 8080, function () {
+  var server = app.listen(process.env.PORT || 8089, function () {
     var port = server.address().port;
     console.log("App now running on port", port);
   });
@@ -46,7 +46,7 @@ function handleError(res, reason, message, code) {
  */
 
 app.get("/api/herokudemo", function(req, res) {
-  db.collection(CLASS_COLLECTION).find({}).toArray(function(err, docs) {
+  db.collection(HEROKUS_COLLECTION).find({}).toArray(function(err, docs) {
     if (err) {
       handleError(res, err.message, "Failed to get contacts.");
     } else {
@@ -56,13 +56,13 @@ app.get("/api/herokudemo", function(req, res) {
 });
 
 app.post("/api/herokudemo", function(req, res) {
-  var newStudent = req.body;
-  newStudent.createDate = new Date();
+  var newContact = req.body;
+  newContact.createDate = new Date();
 
   if (!req.body.name) {
     handleError(res, "Invalid user input", "Must provide a name.", 400);
   } else {
-    db.collection(CLASS_COLLECTION).insertOne(newStudent, function(err, doc) {
+    db.collection(HEROKUS_COLLECTION).insertOne(newContact, function(err, doc) {
       if (err) {
         handleError(res, err.message, "Failed to create new contact.");
       } else {
